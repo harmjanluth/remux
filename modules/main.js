@@ -1,4 +1,5 @@
 import 'hammerjs';
+const {debounce} = require('lodash');
 
 let Hammer = window.Hammer;
 
@@ -7,7 +8,10 @@ export default {};
 class Remux {
 
 	constructor() {
+
 		let that = this;
+		this.events = [];
+
 		window.onload = function (){
 			that.domLoaded();
     	};
@@ -26,7 +30,27 @@ class Remux {
 		    ]
 		});
 
-		this.HammerManager.on('pan press pinch swipe rotate', function(e){ console.log(e); });
+		this.HammerManager
+			.on('pan press pinch swipe rotate', (e) => {
+				this.saveEvent(e);
+		});
+
+		window.onscroll = (e) => {
+			debounce( this.saveScrollEvent(e), 100 );
+		};
+
+	}
+
+	saveScrollEvent(e) {
+		console.log(e);
+
+		this.saveEvent({e});
+	}
+
+	saveEvent(e) {
+		this.events.push(e);
+		console.log('Event saved to..', this.events.length);
+		console.log(this.events);
 	}
 
 
