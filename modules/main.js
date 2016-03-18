@@ -1,5 +1,7 @@
 import 'hammerjs';
 
+let Hammer = window.Hammer;
+
 export default {};
 
 class Remux {
@@ -12,6 +14,7 @@ class Remux {
 	}
 
 	domLoaded() {
+
 		this.HammerManager =  new Hammer.Manager(document.body,
     	{
 		    recognizers: [
@@ -22,7 +25,8 @@ class Remux {
 		        [Hammer.Swipe],
 		    ]
 		});
-		this.HammerManager.on('pan press pinch swipe rotate', function(){ console.log('SDA'); });
+
+		this.HammerManager.on('pan press pinch swipe rotate', function(e){ console.log(e); });
 	}
 
 
