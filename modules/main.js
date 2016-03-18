@@ -2,18 +2,16 @@ import 'hammerjs';
 
 export default {};
 
-
-
 class Remux {
 
 	constructor() {
 		let that = this;
-		window.onload = function () {
-			that.onload();
+		window.onload = function (){
+			that.domLoaded();
     	};
 	}
 
-	onload() {
+	domLoaded() {
 		this.Hammer = new window.Hammer();
     	this.HammerManager =  this.Hammer.Manager(document.body,
     	{
@@ -25,7 +23,7 @@ class Remux {
 		        [this.Hammer.Swipe,{ direction: this.Hammer.DIRECTION_HORIZONTAL }],
 		    ]
 		});
-		this.hammerManager.on('pan press pinch swipe rotate', function(){ console.log('SDA'); });
+		this.HammerManager.on('pan press pinch swipe rotate', function(){ console.log('SDA'); });
 	}
 
 
